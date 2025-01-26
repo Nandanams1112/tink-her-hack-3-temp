@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .help-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .help-container h1 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            color: #333;
+        }
+        .help-container p {
+            font-size: 1rem;
+            color: #666;
+            margin: 0.5rem 0;
+        }
+        .faq {
+            text-align: left;
+            margin-top: 1rem;
+        }
+        .faq h3 {
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .faq p {
+            font-size: 1rem;
+            color: #555;
+            margin-left: 1rem;
+        }
+        .contact-form {
+            margin-top: 1.5rem;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .contact-form button {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="help-container">
+        <h1>Help & Support</h1>
+        <p>If you have any questions or need assistance, we're here to help!</p>
+
+        <div class="faq">
+            <h3>Frequently Asked Questions</h3>
+            <h4>1. How do I order food?</h4>
+            <p>Go to the "Order Food" section from the main menu and select your desired items.</p>
+            <h4>2. Can I track my order?</h4>
+            <p>Yes, use the "View Orders" option to see the status of your current orders.</p>
+            <h4>3. How can I reset my password?</h4>
+            <p>Click on "Forgot Password" on the login page and follow the instructions.</p>
+        </div>
+
+        <div class="contact-form">
+            <h3>Contact Us</h3>
+            <form id="contactForm">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <textarea id="message" rows="4" placeholder="Your Message" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            alert(`Thank you, ${name}! We have received your message and will get back to you at ${email}.`);
+
+            // Clear the form
+            document.getElementById('contactForm').reset();
+        });
+    </script>
+</body>
+</html>

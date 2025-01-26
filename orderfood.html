@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen Automation</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #9F8C76;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+        }
+        button {
+            background-color: #9F8C76;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .payment-options {
+            margin-top: 1rem;
+        }
+        .payment-options button {
+            margin-right: 1rem;
+        }
+        .order-placed {
+            margin-top: 1rem;
+            color: green;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SNGCE CANTEEN</h1>
+    </header>
+    <div id="app" class="container">
+        <h2>Menu</h2>
+        <div v-for="item in menu" :key="item.id" class="menu-item">
+            <div>
+                <strong>{{ item.name }}</strong>
+                <span> - ₹{{ item.price }}</span>
+            </div>
+            <button @click="addToOrder(item)">Add to Order</button>
+        </div>
+        
+        <h2>Your Order</h2>
+        <div v-if="order.length === 0">
+            <p>No items in your order.</p>
+        </div>
+        <ul v-else>
+            <li v-for="(orderItem, index) in order" :key="index">
+                {{ orderItem.name }} - ₹{{ orderItem.price }}
+                <button @click="removeFromOrder(index)">Remove</button>
+            </li>
+        </ul>
+
+        <h3 v-if="order.length > 0">Total: ₹{{ total }}</h3>
+        <button v-if="order.length > 0" @click="checkout">Checkout</button>
+
+        <!-- Payment options after checkout -->
+        <div v-if="showPaymentOptions" class="payment-options">
+            <h3>Choose Payment Method</h3>
+            <button @click="payWithUPI">Pay with UPI</button>
+            <button @click="payWithCash">Cash on Pickup</button>
+        </div>
+
+        <!-- Order placed message -->
+        <div v-if="orderPlaced" class="order-placed">
+            <p>Your order is placed successfully!</p>
+        </div>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    menu: [
+                        { id: 1, name: 'Tea', price: 10 },
+                        { id: 2, name: 'Coffee', price: 15 },
+                        { id: 3, name: 'Cutlet', price: 20 },
+                        { id: 4, name: 'Roll', price: 30 },
+                        { id: 5, name: 'Juice', price: 25 },
+                        { id: 6, name: 'Meals', price: 50 },
+                        { id: 7, name: 'Biriyani', price: 120 },
+                        { id: 8, name: 'Puttu Kadala', price: 35 },
+                        { id: 9, name: 'Appam and Stew', price: 40 },
+                        { id: 10, name: 'Idiyappam and Curry', price: 45 },
+                        { id: 11, name: 'Porotta', price: 15 },
+                        { id: 12, name: 'Chilli Chicken', price: 100 }
+                    ],
+                    order: [],
+                    showPaymentOptions: false,
+                    orderPlaced: false // Flag to track when the order is placed
+                };
+            },
+            computed: {
+                total() {
+                    return this.order.reduce((sum, item) => sum + item.price, 0);
+                }
+            },
+            methods: {
+                addToOrder(item) {
+                    this.order.push(item);
+                },
+                removeFromOrder(index) {
+                    this.order.splice(index, 1);
+                },
+                checkout() {
+                    alert('Thank you for your order!');
+                    this.showPaymentOptions = true;
+                },
+                payWithUPI() {
+                    // Redirect to a UPI payment page (example URL)
+                    window.location.href = "https://www.example-upi-payment.com";
+                    this.orderPlaced = true;  // Mark order as placed
+                },
+                payWithCash() {
+                    alert('Your orders are processing. Please pick them up at the counter.');
+                    this.orderPlaced = true;  // Mark order as placed
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>

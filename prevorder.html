@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous Orders - Canteen Automation</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #9F8C76;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .order-item {
+            margin: 1rem 0;
+        }
+        .order-item button {
+            background-color: #9F8C76;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .order-item button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SNGCE CANTEEN - Previous Orders</h1>
+    </header>
+    <div id="app" class="container">
+        <h2>Previous Orders</h2>
+        
+        <div v-if="previousOrders.length === 0">
+            <p>No previous orders found.</p>
+        </div>
+
+        <div v-else>
+            <div v-for="(order, index) in previousOrders" :key="index" class="order-item">
+                <h3>Order {{ index + 1 }}</h3>
+                <ul>
+                    <li v-for="(item, idx) in order.items" :key="idx">
+                        {{ item.name }} - ₹{{ item.price }}
+                    </li>
+                </ul>
+                <p>Total: ₹{{ order.total }}</p>
+            </div>
+        </div>
+        
+        <button @click="loadPreviousOrders">Load Previous Orders</button>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    previousOrders: []
+                };
+            },
+            mounted() {
+                // Load previous orders from localStorage when the page is loaded
+                this.loadPreviousOrders();
+            },
+            methods: {
+                loadPreviousOrders() {
+                    const orders = JSON.parse(localStorage.getItem('previousOrders')) || [];
+                    this.previousOrders = orders;
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
