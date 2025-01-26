@@ -57,7 +57,8 @@ Its the food oredering menu provided in our webpage after logging and clicking t
 
 
 # Build Photos
-![Team](Add photo of your team here)
+![WhatsApp Image 2025-01-26 at 10 27 37_10cfe15a](https://github.com/user-attachments/assets/952135a8-e0f1-4c65-a363-510edf56bb23)
+
 
 
 
